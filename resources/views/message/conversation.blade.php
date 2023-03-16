@@ -4,7 +4,7 @@
 
     {{-- conversation header --}}
     <div class="flex-3">
-        <h2 class="text-xl py-1 mb-8 border-b-2 border-gray-200"> <b>Mercedes Yemelyan</b></h2>
+        {{-- <h2 class="text-xl py-1 mb-8 border-b-2 border-gray-200"> <b>{{ $friendInfo->name }}</b></h2> --}}
     </div>
     {{-- !conversation header --}}
 
@@ -13,8 +13,8 @@
         <div class="message mb-4 flex">
             <div class="flex-2">
                 <div class="w-12 h-12 relative">
-                    <img class="w-12 h-12 rounded-full mx-auto" src="../resources/profile-image.png" alt="chat-user" />
-                    <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
+                    <div class="w-11 h-11 text-white rounded-full font-bold p-[10px] inline-block bg-blue-700">UR</div>
+                    {{-- <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white"></span> --}}
                 </div>
             </div>
             <div class="flex-1 px-2">
@@ -27,8 +27,8 @@
         <div class="message mb-4 flex">
             <div class="flex-2">
                 <div class="w-12 h-12 relative">
-                    <img class="w-12 h-12 rounded-full mx-auto" src="../resources/profile-image.png" alt="chat-user" />
-                    <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
+                    <div class="w-11 h-11 text-white rounded-full font-bold p-[10px] inline-block bg-blue-700">UR</div>
+                    {{-- <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white"></span> --}}
                 </div>
             </div>
             <div class="flex-1 px-2">
@@ -57,7 +57,7 @@
         <div class="message mb-4 flex">
             <div class="flex-2">
                 <div class="w-12 h-12 relative">
-                    <img class="w-12 h-12 rounded-full mx-auto" src="../resources/profile-image.png" alt="chat-user" />
+                    <div class="w-11 h-11 text-white rounded-full font-bold p-[10px] inline-block bg-blue-700">UR</div>
                     <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
                 </div>
             </div>

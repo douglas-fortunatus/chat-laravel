@@ -14,5 +14,9 @@ class MessageController extends Controller
         $data['friendInfo'] = User::findOrFail($userId);
         $data['myInfo'] = User::find(Auth::id());
         $data['userId'] = $userId;
+
+        // dd($data['friendInfo']);
+
+        return view('message.conversation', $data);
     }
 }

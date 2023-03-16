@@ -16,7 +16,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-white">
-            {{-- @include('layouts.navigation') --}}
+            @include('layouts.navigation')
 
             <div class="w-full h-screen bg-white">
                 <div class="flex h-full">
@@ -62,52 +62,33 @@
 
                                             @if ($users->count())
                                                 @foreach ($users as $user)
-                                                <div class="entry cursor-pointer transform hover:scale-105 duration-300 transition-transform bg-white mb-4 rounded p-4 flex shadow-md">
-                                                    <div class="flex-2">
-                                                        <div class="w-12 h-12 relative">
-                                                            <div class="w-11 h-11 text-white rounded-full font-bold p-[10px] inline-block bg-blue-700">UR</div>
+                                                <a href="{{ route('message.conversation', $user->id) }}">
+                                                    <div class="entry cursor-pointer transform hover:scale-105 duration-300 transition-transform bg-white mb-4 rounded p-4 flex shadow-md
+                                                    {{-- @if ($user->id == $friendInfo->id) border-l-4 border-red-500 @endif  --}}
+                                                    ">
+                                                        <div class="flex-2">
+                                                            <div class="w-12 h-12 relative">
+                                                                <div class="w-11 h-11 text-white rounded-full font-bold p-[10px] inline-block bg-blue-700">UR</div>
+                                                                <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white user-status-icon user-icon-{{ $user->id }}"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-1 px-2">
+                                                            <div class="truncate w-32"><span class="text-gray-800 font-bold">{{ $user->name }}</span></div>
+                                                            <div><small class="text-gray-600">Yea, Sure!</small></div>
+                                                        </div>
+                                                        <div class="flex-2 text-right">
+                                                            <div><small class="text-gray-500">15 April</small></div>
+                                                            <div>
+                                                                <small class="text-xs bg-red-500 text-white rounded-full h-6 w-6 leading-6 text-center inline-block">
+                                                                    23
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
 
-                                                            <span class="absolute w-4 h-4 bg-green-500 rounded-full right-0 bottom-0 border-2 border-white"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-1 px-2">
-                                                        <div class="truncate w-32"><span class="text-gray-800 font-bold">{{ $user->name }}</span></div>
-                                                        <div><small class="text-gray-600">Yea, Sure!</small></div>
-                                                    </div>
-                                                    <div class="flex-2 text-right">
-                                                        <div><small class="text-gray-500">15 April</small></div>
-                                                        <div>
-                                                            <small class="text-xs bg-red-500 text-white rounded-full h-6 w-6 leading-6 text-center inline-block">
-                                                                23
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 @endforeach
                                             @endif
-
-
-
-                                            <div class="entry cursor-pointer transform hover:scale-105 duration-300 transition-transform bg-white mb-4 rounded p-4 flex shadow-md">
-                                                <div class="flex-2">
-                                                    <div class="w-12 h-12 relative">
-                                                        <img class="w-12 h-12 rounded-full mx-auto" src="../resources/profile-image.png" alt="chat-user" />
-                                                        <span class="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="flex-1 px-2">
-                                                    <div class="truncate w-32"><span class="text-gray-800">Karp Bonolo</span></div>
-                                                    <div><small class="text-gray-600">Yea, Sure!</small></div>
-                                                </div>
-                                                <div class="flex-2 text-right">
-                                                    <div><small class="text-gray-500">15 April</small></div>
-                                                    <div>
-                                                        <small class="text-xs bg-red-500 text-white rounded-full h-6 w-6 leading-6 text-center inline-block">
-                                                            10
-                                                        </small>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
 
@@ -122,5 +103,37 @@
                 </div>
             </div>
         </div>
+
+        {{-- jquary cdn --}}
+        <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
+        {{-- socket cdn --}}
+        <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+
+        <script>
+            $(function(){
+                let user_id = "{{ auth()->user()->id }}";
+                let ip_address = '127.0.0.1';
+                let socket_port = '3000';
+                let socket = io(ip_address + ':' + socket_port);
+
+                socket.emit('user_connected', user_id);
+
+                socket.on('updateUserStatus', (data)=>{
+
+                    let statusOffline = $('.user-status-icon');
+                    statusOffline.removeClass('bg-green-500');
+                    statusOffline.addClass('bg-gray-400');
+
+                    $.each(data, function (key, val) {
+                        if (val !== null && val !== 0) {
+                            let statusOnline = $('.user-icon-'+key)
+                            statusOnline.removeClass('bg-gray-400')
+                            statusOnline.addClass('bg-green-500')
+                        }
+                    })
+                });
+            })
+        </script>
     </body>
 </html>
