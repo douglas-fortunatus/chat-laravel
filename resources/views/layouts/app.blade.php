@@ -110,30 +110,7 @@
         {{-- socket cdn --}}
         <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 
-        <script>
-            $(function(){
-                let user_id = "{{ auth()->user()->id }}";
-                let ip_address = '127.0.0.1';
-                let socket_port = '3000';
-                let socket = io(ip_address + ':' + socket_port);
+        @stack('footer-script')
 
-                socket.emit('user_connected', user_id);
-
-                socket.on('updateUserStatus', (data)=>{
-
-                    let statusOffline = $('.user-status-icon');
-                    statusOffline.removeClass('bg-green-500');
-                    statusOffline.addClass('bg-gray-400');
-
-                    $.each(data, function (key, val) {
-                        if (val !== null && val !== 0) {
-                            let statusOnline = $('.user-icon-'+key)
-                            statusOnline.removeClass('bg-gray-400')
-                            statusOnline.addClass('bg-green-500')
-                        }
-                    })
-                });
-            })
-        </script>
     </body>
 </html>

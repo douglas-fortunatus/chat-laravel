@@ -19,6 +19,8 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('conversation/{userid}', [MessageController::class, 'conversation'])->name('message.conversation');
+    Route::any('sendMessage', [MessageController::class,'sendMessage'])->name('message.send');
+    Route::get('allSmsFetched/{userid}', [MessageController::class, 'smsFetch'])->name('sms.fetch');
 });
 
 
