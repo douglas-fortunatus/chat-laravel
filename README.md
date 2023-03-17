@@ -2,7 +2,13 @@
 
 ## Project installation
 
-Start by running
+This project we use socket.io, redis server and also inside our laravel application we get to use queues and events.
+
+
+Start by running the migration with
+```
+php artisan migrate
+```
 
 ```
 Composer update
@@ -10,13 +16,13 @@ Composer update
 
 after that run
 
-```js
+```
 npm install
 ```
 
 then run
 
-```js
+```
 npm run dev
 ```
 
